@@ -101,7 +101,7 @@ ingresses:
     className: "nginx"
     hosts: []
     annotations:
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
       nginx.ingress.kubernetes.io/proxy-body-size: "8m"
       nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
@@ -112,7 +112,7 @@ ingresses:
   - name: domain
     className: "nginx"
     hosts:
-      - retail-store.trainwithshubham.com
+      - eksecom.digitalwebgarage.com
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -124,12 +124,12 @@ ingresses:
     tls:
       - secretName: tls-secret
         hosts:
-          - retail-store.trainwithshubham.com
+          - eksecom.digitalwebgarage.com
 
 # Cert Manager Configuration
 certManager:
   createClusterIssuer: true
-  email: trainwithshubham@gmail.com
+  email: ashish.kweb@gmail.com
   clusterIssuerName: "letsencrypt-prod"
   server: "https://acme-v02.api.letsencrypt.org/directory"
   privateKeySecretName: "letsencrypt-prod-key"
