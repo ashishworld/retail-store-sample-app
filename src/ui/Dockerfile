@@ -6,11 +6,15 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:2023 AS build-env
 RUN dnf --setopt=install_weak_deps=False install -q -y \
     maven \
     java-21-amazon-corretto-headless \
+    java-21-amazon-corretto-devel \
     which \
     tar \
     gzip \
     && \
     dnf clean all
+
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 VOLUME /tmp
 WORKDIR /
