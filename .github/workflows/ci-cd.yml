@@ -3,12 +3,8 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'src/**'
   pull_request:
     branches: [ main ]
-    paths:
-      - 'src/**'
 
 env:
   AWS_REGION: us-west-2
@@ -92,5 +88,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add src/${{ matrix.service }}/chart/values.yaml
-          git commit -m "Update ${{ matrix.service }} image tag to ${GITHUB_SHA:0:7}" || exit 0
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update ${{ matrix.service }} image tag to ${GITHUB_SHA:0:7}"
+            git push
+          fi
