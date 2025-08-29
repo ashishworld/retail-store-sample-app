@@ -15,15 +15,13 @@ RUN dnf --setopt=install_weak_deps=False install -q -y \
 VOLUME /tmp
 WORKDIR /
 
-COPY .mvn .mvn
-COPY mvnw .
 COPY pom.xml .
 
-RUN ./mvnw dependency:go-offline -B -q
+RUN mvn dependency:go-offline -B -q
 
 COPY ./src ./src
 
-RUN ./mvnw -DskipTests package -q && \
+RUN mvn -DskipTests package -q && \
     mv /target/ui-0.0.1-SNAPSHOT.jar /app.jar
 
 # Package Stage
